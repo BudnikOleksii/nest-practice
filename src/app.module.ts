@@ -5,10 +5,12 @@ import { ConfigModule } from '@nestjs/config';
 import * as process from 'process';
 
 import { User } from './user/user.model';
-import { RolesController } from './roles/roles.controller';
 import { RolesModule } from './roles/roles.module';
 import { Role } from './roles/roles.model';
 import { UserRoles } from './roles/user-roles.model';
+import { AuthModule } from './auth/auth.module';
+import { PostsModule } from './posts/posts.module';
+import { Post } from './posts/posts.model';
 
 @Module({
   imports: [
@@ -22,12 +24,14 @@ import { UserRoles } from './roles/user-roles.model';
       username: process.env.POSTGRES_USER,
       password: process.env.POSTGRES_PASSWORD,
       database: process.env.POSTGRES_USER,
-      models: [User, Role, UserRoles],
+      models: [User, Role, UserRoles, Post],
       autoLoadModels: true,
     }),
     UserModule,
     RolesModule,
+    AuthModule,
+    PostsModule,
   ],
-  controllers: [RolesController],
+  controllers: [],
 })
 export class AppModule {}
